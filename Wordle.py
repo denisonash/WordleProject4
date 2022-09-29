@@ -18,7 +18,24 @@ def wordle():
     print(word)
 
     def enter_action(s):
-        gw.show_message("You have to implement this method.")
+        input = ""
+
+        # Gets the row 
+        r = gw.get_current_row()
+
+        # Loop through to get input word
+        c = 0
+        while c < 5:
+            input += gw.get_square_letter(r,c)
+            c += 1
+
+        # Check to see if the word is in the approved dictionary
+        # Convert to lower case to compare in dictionary
+        if input.lower() not in FIVE_LETTER_WORDS:
+            gw.show_message("Not in word list.")
+        else:
+            gw.show_message("We slayed Milestone #2!")
+        
 
     gw = WordleGWindow()
     gw.add_enter_listener(enter_action)
