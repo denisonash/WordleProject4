@@ -12,10 +12,10 @@ from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
 
 def wordle():
     # Choose Random word from list
-    word = random.choice(FIVE_LETTER_WORDS)
+    word = random.choice(FIVE_LETTER_WORDS).upper()
 
     # Test to be sure word is selected and saved
-    print(word)
+    #print(word)
 
     def enter_action(s):
         input = ""
