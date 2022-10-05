@@ -8,7 +8,7 @@ BE SURE TO UPDATE THIS COMMENT WHEN YOU WRITE THE CODE.
 import random
 
 from WordleDictionary import FIVE_LETTER_WORDS
-from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
+from WordleGraphics import CORRECT_COLOR, MISSING_COLOR, PRESENT_COLOR, WordleGWindow, N_COLS, N_ROWS
 
 def wordle():
     # Choose Random word from list
@@ -35,6 +35,33 @@ def wordle():
             gw.show_message("Not in word list.")
         else:
             gw.show_message("We slayed Milestone #2!")
+        
+        #Begin Coloring
+        #if all 5 letters correct, all green and congrats message
+        if input.upper() == word.upper():
+            gw.show_message("You guessed the right word!")
+            c = 0
+            while c < 5:
+                gw.set_square_color(r, c, CORRECT_COLOR) 
+                c += 1
+        else: #letter by letter
+            c = 0
+            wordletterlist = list(word)
+            while c < 5:
+                guessedletter = gw.get_square_letter(r, c)
+
+                #if letter in the word and in correct spot
+                if (guessedletter in word) and (guessedletter == wordletterlist[c]):
+                    gw.set_square_color(r, c, CORRECT_COLOR)
+                elif guessedletter in word: #if letter is in word, but not correct spot
+                    gw.set_square_color(r, c, PRESENT_COLOR) 
+                else: #if letter isn't in word
+                    gw.set_square_color(r, c, MISSING_COLOR) 
+                c += 1
+
+        #Move active row down to next row
+        r += 1
+        gw.set_current_row(r)
         
 
     gw = WordleGWindow()
