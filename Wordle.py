@@ -26,14 +26,7 @@ def wordle():
         # Gets the row 
         r = gw.get_current_row()
 
-        # Right letters dictionary
-        correctGuess = {}
-        # Not in Word dictionary
-        notIncluded = {}
-        #In word but wrong spot dictionary
-        yellow = {}
-        # Repeat list to figure out what colors repeated letters should be
-        repeat = []
+        
 
         # Loop through to get input word
         c = 0
@@ -59,6 +52,14 @@ def wordle():
 
             # Else if word isn't right
             else: #letter by letter
+                # Right letters dictionary
+                correctGuess = {}
+                # Not in Word dictionary
+                notIncluded = {}
+                #In word but wrong spot dictionary
+                yellow = {}
+                # Repeat list to figure out what colors repeated letters should be
+                repeat = []
                 c = 0
                 wordletterlist = list(word)
 
@@ -101,6 +102,8 @@ def wordle():
                                 else:
                                     notIncluded[repeat[y]] = guessedletter
                                 y +=1
+                        else:
+                            yellow[x] = guessedletter
                     x +=1
 
                 # Output correct colors
@@ -115,22 +118,27 @@ def wordle():
                     else:
                         gw.set_square_color(r, f, MISSING_COLOR) 
                     f +=1
-
+                # # Right letters dictionary
+                # correctGuess = {}
+                # # Not in Word dictionary
+                # notIncluded = {}
+                # #In word but wrong spot dictionary
+                # yellow = {}
+                # # Repeated letters list
+                # repeat = []
             #Move active row down to next row
             if r < 5:
                 r += 1
                 gw.set_current_row(r)
+            elif input.upper() == word.upper():
+                gw.show_message("You guessed the right word!")
+                c = 0
+                while c < 5:
+                    gw.set_square_color(r, c, CORRECT_COLOR) 
+                    c += 1
             else:
                 gw.show_message("The word was " + word + ". Better luck next time!")
-        # Right letters dictionary
-        correctGuess = {}
-        # Not in Word dictionary
-        notIncluded = {}
-        #In word but wrong spot dictionary
-        yellow = {}
-        # # Repeat dictionary
-        # repeat = {}
-        repeat = []
+        
         
 
     gw = WordleGWindow()
