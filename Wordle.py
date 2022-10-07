@@ -26,8 +26,6 @@ def wordle():
         # Gets the row 
         r = gw.get_current_row()
 
-        
-
         # Loop through to get input word
         c = 0
         while c < 5:
@@ -109,14 +107,21 @@ def wordle():
                 # Output correct colors
                 f = 0
                 while f < 5:
+                    currentLetter = gw.get_square_letter(r,f)
+                    currentLetterColor = gw.get_key_color(currentLetter)
                     if f in correctGuess:
                         gw.set_square_color(r, f, CORRECT_COLOR)
-                    
+                        gw.set_key_color(currentLetter, CORRECT_COLOR)
+
                     elif f in yellow:
                         gw.set_square_color(r, f, PRESENT_COLOR) 
-                    
+                        if currentLetterColor != CORRECT_COLOR:
+                            gw.set_key_color(currentLetter, PRESENT_COLOR)
+    
                     else:
                         gw.set_square_color(r, f, MISSING_COLOR) 
+                        if currentLetterColor != CORRECT_COLOR and currentLetterColor != PRESENT_COLOR:
+                            gw.set_key_color(currentLetter, MISSING_COLOR)
                     f +=1
                 # # Right letters dictionary
                 # correctGuess = {}
